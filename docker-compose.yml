@@ -1,0 +1,18 @@
+services:
+  frontend:
+    # Cambiamos 'build: .' por la imagen que ya tienes en tu PC
+    image: kamilox25/front-ev2:latest 
+    container_name: flask-frontend
+    restart: always
+    ports:
+      - "80:5000"
+    environment:
+      - BACKEND_URL=http://backend-api:3000
+      - PORT=5000
+      - DEBUG=False
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    external: true
