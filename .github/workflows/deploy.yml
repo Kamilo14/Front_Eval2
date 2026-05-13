@@ -8,6 +8,7 @@ on:
   push:
     branches:
       - deploy
+      - main
 
 # Definición del trabajo para construir y publicar la imagen Docker
 jobs:
