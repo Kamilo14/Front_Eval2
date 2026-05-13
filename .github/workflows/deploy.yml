@@ -1,6 +1,6 @@
 
 name: Publicar imagen docker
-
+#Para compatibilidad con Node 24 en acciones de JavaScript
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
@@ -9,6 +9,7 @@ on:
     branches:
       - deploy
 
+# Definición del trabajo para construir y publicar la imagen Docker
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
