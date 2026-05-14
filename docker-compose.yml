@@ -1,8 +1,6 @@
 services:
   frontend:
-  #significa que se va a construir la imagen a partir del Dockerfile ubicado en el mismo directorio
-    build: .
-    ## El nombre del contenedor es importante para que el backend pueda comunicarse con él usando el nombre del servicio
+    image: kamilox25/front-ev2:latest
     container_name: flask-frontend
     restart: always
     ports:

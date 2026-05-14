@@ -49,11 +49,14 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}       # Llave privada SSH (agrega como secreto en GitHub)
           port: 22                              # Puerto SSH por defecto
           script: |
+            cd /home/ec2-user/Front_Eval2 && git pull origin main
             sed -i 's|^BACKEND_URL=.*|BACKEND_URL=http://10.0.130.233:3000|' /home/ec2-user/Front_Eval2/.env
+
             docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_TOKEN }}
-            docker pull ${{ secrets.DOCKER_USERNAME }}/front-ev2:latest
-            docker rm -f flask-frontend || true
-            docker run -d --name flask-frontend --network app-network --env-file /home/ec2-user/Front_Eval2/.env -p 80:5000 ${{ secrets.DOCKER_USERNAME }}/front-ev2:latest
+            cd /home/ec2-user/Front_Eval2
+            docker-compose pull
+            docker-compose down
+            docker-compose up -d
       
 # Fin del archivo deploy.yml
     
