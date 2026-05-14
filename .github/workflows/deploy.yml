@@ -48,9 +48,9 @@ jobs:
             # Descarga la última imagen del frontend
             docker pull ${{ secrets.DOCKER_USERNAME }}/front-ev2:latest
             # Detiene el contenedor actual (si existe)
-            docker stop frontend-app || true
+            docker stop flask-frontend || true
             # Elimina el contenedor actual (si existe)
-            docker rm frontend-app || true
+            docker rm flask-frontend || true
             # Inicia el nuevo contenedor con la imagen actualizada
-            docker run -d --name frontend-app --network app-network --env-file /home/ec2-user/.env.frontend -p 80:80 ${{ secrets.DOCKER_USERNAME }}/front-ev2:latest
+            docker run -d --name flask-frontend --network app-network --env-file /home/ec2-user/.env.frontend -p 80:80 ${{ secrets.DOCKER_USERNAME }}/front-ev2:latest
       # --- FIN DESPLIEGUE AUTOMÁTICO ---
