@@ -66,7 +66,7 @@ jobs:
 
         
 
-            docker run -d --name flask-frontend --network app-network --env-file /home/ec2-user/Front_Eval2/.env -p 80:80 ${{ secrets.DOCKER_USERNAME }}/front-ev2:latest
+            docker run -d --name flask-frontend --network app-network --env-file /home/ec2-user/Front_Eval2/.env -p 80:5000 ${{ secrets.DOCKER_USERNAME }}/front-ev2:latest
       
 
     
