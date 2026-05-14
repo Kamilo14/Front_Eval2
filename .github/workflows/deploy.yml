@@ -54,8 +54,9 @@ jobs:
 
             docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_TOKEN }}
             cd /home/ec2-user/Front_Eval2
+            docker-compose down || true
+            docker rm -f flask-frontend || true
             docker-compose pull
-            docker-compose down
             docker-compose up -d
       
 # Fin del archivo deploy.yml
