@@ -49,6 +49,7 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}       # Llave privada SSH (agrega como secreto en GitHub)
           port: 22                              # Puerto SSH por defecto
           script: |
+            cd /home/ec2-user/Front_Eval2 && git pull origin main
             docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_TOKEN }}
             docker pull ${{ secrets.DOCKER_USERNAME }}/front-ev2:latest
             docker rm -f flask-frontend || true
