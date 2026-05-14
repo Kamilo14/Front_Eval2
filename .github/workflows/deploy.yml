@@ -39,7 +39,7 @@ jobs:
 
       # --- DESPLIEGUE AUTOMÁTICO EN EC2 ---
       # Este paso se conecta por SSH a tu instancia EC2 y actualiza el contenedor frontend automáticamente.
-      # Requiere que configures los secretos EC2_HOST (IP o DNS), EC2_SSH_KEY (llave privada PEM), DOCKER_USERNAME y DOCKER_TOKEN en GitHub.
+     
 
       - name: Desplegar en EC2 vía SSH
         uses: appleboy/ssh-action@v1.0.3  # Acción para ejecutar comandos SSH desde GitHub Actions
@@ -69,4 +69,4 @@ jobs:
             docker run -d --name flask-frontend --network app-network --env-file /home/ec2-user/.env.frontend -p 80:80 ${{ secrets.DOCKER_USERNAME }}/front-ev2:latest
       
 
-      #fin dle despliegue automático
+    
