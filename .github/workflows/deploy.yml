@@ -32,6 +32,11 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/front-ev2:latest
 
+      - name: Verificar conectividad SSH a EC2
+        run: |
+          echo "Host objetivo: ${{ secrets.EC2_HOST }}"
+          nc -vz -w 5 ${{ secrets.EC2_HOST }} 22
+
       # --- DESPLIEGUE AUTOMÁTICO EN EC2 ---
       # Este paso se conecta por SSH a tu instancia EC2 y actualiza el contenedor frontend automáticamente.
       # Requiere que configures los secretos EC2_HOST (IP o DNS), EC2_SSH_KEY (llave privada PEM), DOCKER_USERNAME y DOCKER_TOKEN en GitHub.
@@ -44,22 +49,22 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}       # Llave privada SSH (agrega como secreto en GitHub)
           port: 22                              # Puerto SSH por defecto
           script: |
-            # Inicia sesión en Docker Hub en la EC2
+            
 
             docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_TOKEN }}
-            # Descarga la última imagen del frontend
+            
 
             docker pull ${{ secrets.DOCKER_USERNAME }}/front-ev2:latest
 
-            # Detiene el contenedor actual (si existe)
+            
 
             docker stop flask-frontend || true
 
-            # Elimina el contenedor actual (si existe)
+            
 
             docker rm flask-frontend || true
 
-            # Inicia el nuevo contenedor con la imagen actualizada
+        
 
             docker run -d --name flask-frontend --network app-network --env-file /home/ec2-user/.env.frontend -p 80:80 ${{ secrets.DOCKER_USERNAME }}/front-ev2:latest
       
