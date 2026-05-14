@@ -8,8 +8,17 @@ services:
       - "80:5000"
     env_file:
       - .env
+    volumes:
+      - frontend_data:/app/data
+      - frontend_logs:/app/logs
     networks:
       - app-network
+
+volumes:
+  frontend_data:
+    driver: local
+  frontend_logs:
+    driver: local
 
 networks:
   app-network:
