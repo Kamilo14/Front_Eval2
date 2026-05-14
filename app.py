@@ -27,12 +27,17 @@ def index():
     """
     try:
         # Petición GET al backend para obtener todos los usuarios
-        response = requests.get(f'{BACKEND_URL}/api/usuarios')
+        print(f"Intentando conectar a: {BACKEND_URL}/api/usuarios")
+        response = requests.get(f'{BACKEND_URL}/api/usuarios', timeout=5)
+        print(f"Status code: {response.status_code}")
+        print(f"Respuesta: {response.text[:500]}")
         
         if response.status_code == 200:
             usuarios = response.json()
+            print(f"Usuarios obtenidos: {len(usuarios)} registros")
             return render_template('index.html', usuarios=usuarios)
         else:
+            print(f'Error: Status {response.status_code}')
             flash('Error al obtener los usuarios del servidor', 'error')
             return render_template('index.html', usuarios=[])
             
